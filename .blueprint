@@ -1,0 +1,27 @@
+created:
+    - database/factories/Models/BuildingFactory.php
+    - database/factories/Models/RoomFactory.php
+    - database/factories/Models/CleaningServiceFactory.php
+    - database/factories/Models/ResponsibilityFactory.php
+    - database/factories/Models/CleaningHistoryFactory.php
+    - database/migrations/2020_11_25_172843_create_buildings_table.php
+    - database/migrations/2020_11_25_172844_create_rooms_table.php
+    - database/migrations/2020_11_25_172845_create_cleaning_services_table.php
+    - database/migrations/2020_11_25_172846_create_responsibilities_table.php
+    - database/migrations/2020_11_25_172847_create_cleaning_histories_table.php
+    - app/Models/Building.php
+    - app/Models/Room.php
+    - app/Models/CleaningService.php
+    - app/Models/Responsibility.php
+    - app/Models/CleaningHistory.php
+    - database/seeders/BuildingSeeder.php
+    - database/seeders/RoomSeeder.php
+    - database/seeders/CleaningServiceSeeder.php
+    - database/seeders/ResponsibilitySeeder.php
+    - database/seeders/CleaningHistorySeeder.php
+models:
+    Models\Building: { name: string, address: 'string nullable' }
+    Models\Room: { name: string, level: 'string nullable', building_id: 'id foreign:buildings', relationships: { belongsTo: Building } }
+    Models\CleaningService: { name: string, status: 'enum:Active,Non-active default:''Active''' }
+    Models\Responsibility: { cleaning_service_id: 'id foreign:cleaningservices', room_id: 'id foreign:rooms', assigned_from: date, assigned_to: date }
+    Models\CleaningHistory: { room_id: 'id foreign:rooms', cleaning_service_id: 'id foreign:cleaningservices', responsibility_id: 'id foreign:responsibilities', proof_1: string, proof_2: 'string nullable', proof_3: 'string nullable', proof_4: 'string nullable', proof_5: 'string nullable' }

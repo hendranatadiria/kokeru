@@ -1,0 +1,33 @@
+models:
+  Models\Building:
+    name: string
+    address: string nullable
+
+  Models\Room:
+    name: string
+    level: string nullable
+    building_id: id foreign:buildings
+    relationships:
+      belongsTo: Building
+
+  Models\CleaningService:
+    name: string
+    status: enum:Active,Non-active default:'Active'
+
+  Models\Responsibility:
+    cleaning_service_id: id foreign:cleaningservices
+    room_id: id foreign:rooms
+    assigned_from: date
+    assigned_to : date
+
+  Models\CleaningHistory:
+    room_id: id foreign:rooms
+    cleaning_service_id: id foreign:cleaningservices
+    responsibility_id: id foreign:responsibilities
+    proof_1: string
+    proof_2: string nullable
+    proof_3: string nullable
+    proof_4: string nullable
+    proof_5: string nullable
+
+seeders: Building, Room, CleaningService, Responsibility, CleaningHistory
