@@ -28,4 +28,8 @@ class CleaningService extends Model
     protected $casts = [
         'id' => 'integer',
     ];
+
+    public function responsibility(){
+        return $this->hasMany(\App\Models\Responsibility::class);
+    }
 }

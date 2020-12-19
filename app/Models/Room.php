@@ -37,4 +37,14 @@ class Room extends Model
         return $this->belongsTo(\App\Models\Building::class);
     }
 
+    public function cleaninghistory()
+    {
+        return $this->hasMany(\App\Models\CleaningHistory::class,'room_id', 'id');
+    }
+
+    public function responsibility()
+    {
+        return $this->hasMany(\App\Models\Responsibility::class,'room_id', 'id');
+    }
+
 }
