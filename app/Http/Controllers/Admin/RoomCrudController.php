@@ -21,40 +21,40 @@ class RoomCrudController extends CrudController
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
-     * 
+     *
      * @return void
      */
     public function setup()
     {
         CRUD::setModel(\App\Models\Room::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/room');
-        CRUD::setEntityNameStrings('room', 'rooms');
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/ruangan');
+        CRUD::setEntityNameStrings('Ruangan', 'Ruangan');
     }
 
     /**
      * Define what happens when the List operation is loaded.
-     * 
+     *
      * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
      * @return void
      */
     protected function setupListOperation()
     {
-        CRUD::column('name');
-        CRUD::column('level');
-        CRUD::column('building_id');
-        CRUD::column('created_at');
-        CRUD::column('updated_at');
+        CRUD::column('name')->label('Nama Ruang');
+        CRUD::column('level')->label('Lantai');
+        // CRUD::column('building_id');
+        // CRUD::column('created_at');
+        // CRUD::column('updated_at');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
+         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
          */
     }
 
     /**
      * Define what happens when the Create operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-create
      * @return void
      */
@@ -69,13 +69,13 @@ class RoomCrudController extends CrudController
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
+         * - CRUD::addField(['name' => 'price', 'type' => 'number']));
          */
     }
 
     /**
      * Define what happens when the Update operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-update
      * @return void
      */
