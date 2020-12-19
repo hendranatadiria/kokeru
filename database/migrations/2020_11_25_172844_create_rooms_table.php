@@ -19,7 +19,6 @@ class CreateRoomsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('level')->nullable();
-            $table->foreignId('building_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
 

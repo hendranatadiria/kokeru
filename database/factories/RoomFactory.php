@@ -24,9 +24,8 @@ class RoomFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name,
-            'level' => $this->faker->word,
-            'building_id' => Building::factory(),
+            'name' => $this->faker->randomElement(['A','B','C']).$this->faker->numberBetween(1,3).$this->faker->randomElement('0','1').$this->faker->numberBetween(1,9),
+            'level' => $this->faker->numberBetween(1,5),
         ];
     }
 }

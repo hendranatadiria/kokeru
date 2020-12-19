@@ -27,7 +27,7 @@ class CleaningHistoryFactory extends Factory
     {
         return [
             'room_id' => Room::factory(),
-            'cleaning_service_id' => Cleaningservice::factory(),
+            'cleaning_service_id' => $this->faker->numberBetween(1,15),
             'responsibility_id' => Responsibility::factory(),
             'proof_1' => $this->faker->word,
             'proof_2' => $this->faker->word,

@@ -18,8 +18,8 @@ class CreateCleaningHistoriesTable extends Migration
         Schema::create('cleaning_histories', function (Blueprint $table) {
             $table->id();
             $table->foreignId('room_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('cleaning_service_id')->constrained('cleaningservices')->cascadeOnDelete();
-            $table->foreignId('responsibility_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('cleaning_service_id')->constrained('cleaning_services')->cascadeOnDelete();
+            $table->foreignId('responsibility_id')->constrained('responsibilities')->cascadeOnDelete();
             $table->string('proof_1');
             $table->string('proof_2')->nullable();
             $table->string('proof_3')->nullable();

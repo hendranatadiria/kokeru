@@ -25,10 +25,10 @@ class ResponsibilityFactory extends Factory
     public function definition()
     {
         return [
-            'cleaning_service_id' => Cleaningservice::factory(),
+            'cleaning_service_id' => $this->faker->numberBetween(1,15),
             'room_id' => Room::factory(),
-            'assigned_from' => $this->faker->date(),
-            'assigned_to' => $this->faker->date(),
+            'assigned_from' => '2020-01-01',
+            'assigned_to' => '2020-12-31',
         ];
     }
 }

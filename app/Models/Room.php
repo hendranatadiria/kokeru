@@ -18,7 +18,6 @@ class Room extends Model
     protected $fillable = [
         'name',
         'level',
-        'building_id',
     ];
 
     /**
@@ -28,14 +27,9 @@ class Room extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'building_id' => 'integer',
     ];
 
 
-    public function building()
-    {
-        return $this->belongsTo(\App\Models\Building::class);
-    }
 
     public function cleaninghistory()
     {

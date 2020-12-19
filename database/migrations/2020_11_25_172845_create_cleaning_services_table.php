@@ -18,7 +18,6 @@ class CreateCleaningServicesTable extends Migration
         Schema::create('cleaning_services', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->enum('status', ["Active","Non-active"])->default('Active');
             $table->timestamps();
         });
 

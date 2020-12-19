@@ -17,7 +17,6 @@ class CleaningService extends Model
      */
     protected $fillable = [
         'name',
-        'status',
     ];
 
     /**

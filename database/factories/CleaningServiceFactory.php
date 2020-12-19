@@ -24,7 +24,6 @@ class CleaningServiceFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
-            'status' => $this->faker->randomElement(["Active","Non-active"]),
         ];
     }
 }
