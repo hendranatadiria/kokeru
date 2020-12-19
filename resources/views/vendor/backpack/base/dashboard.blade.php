@@ -61,7 +61,7 @@
           </button>
         </div>
         <div class="modal-body bg-info text-center" id="bodyModal">
-          <p id="loadingTxt">Memuat detail...</p>
+          <img src="{{url("/load.gif")}}" width="40" >
         </div>
         <div class="modal-footer bg-info">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -98,7 +98,7 @@
         var id = button.data('detailid')
         var modalBody = $('#bodyModal');
         modalBody.empty();
-        modalBody.append('<p id="loadingTxt">Memuat detail...</p>');
+        modalBody.append('<img src="{{url("/")}}/load.gif" width="40">');
         $.ajax({url: '/admin/cleaninghistory/'+id+'/json', success: function(result){
             modalBody.empty();
             console.log(result.proof_1);
