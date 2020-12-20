@@ -25,6 +25,9 @@ Route::get('/', function () {
 });
 */
 
+Route::get('admin/laporan', [ReportController::class, 'index']);
+Route::get('admin/laporan/cetak_pdf', [ReportController::class, 'cetak_pdf']);
+
 //Frontpage
 Route::get('/', [FrontendController::class, 'index']);
 Route::get('/tugas/{id}', [FrontendController::class, 'lihatTugas']);
