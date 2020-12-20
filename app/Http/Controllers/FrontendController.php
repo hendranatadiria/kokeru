@@ -10,6 +10,7 @@ use App\Models\Post;
 
 use App\Models\Responsibility;
 use App\Models\CleaningHistory;
+use App\Models\Room;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,15 +22,20 @@ class FrontendController extends Controller
         //$post = Responsibility::orderByDesc('created_at')->get();
         //$id = auth()->user->id;
         $id = 1;
-        $post = Responsibility::where('cleaning_service_id', $id)->get();
+        $id_room = Responsibility::where('cleaning_service_id', $id)->select('id')->get();
+        //$post = Room::where('id', $id_room->id)->get();
+        foreach($id_room as $data){
+            $post = Room::where('id', $data->id)->get();
+        }
         //$tugasNotDone = CleaningHistory::where('cleaning_service_id', $id)->where('responsibility_id','!==', $tugasNotDone)->get();
 
         return view('cleaningservice.index', compact('post'));
     }
 
     public function lihatTugas($id) {
-        $post = Responsibility::where('id', $id)->get();
-        $komentar = Responsibility::where('idpost', $id)->get();
+        $response_id = Responsibility::where('id', $id)->get();
+        $cs_id = Responsibility::where('cleaning_service_id', $id)->get();
+        $room_id = Responsibility::where('room_id', $id)->get();
 
         $post = new CleaningHistory();
         $post->room_id = $request->input('room_id');

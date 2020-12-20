@@ -2,6 +2,7 @@
 
 //use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\CleaningServiceController;
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReportController;
@@ -31,7 +32,7 @@ Route::get('/tugas/{id}', [FrontendController::class, 'lihatTugas']);
 
 //Route::get('/mypost', [CleaningServiceController::class, 'tugasSaya']);
 Route::get('/tugas/edit/{id}', [CleaningServiceController::class, 'editTugas']);
-Route::post('/tugas/edit/{id}', [CleaningServiceController::class, 'updateTugas']);
+Route::post('/tugas/edit/{id}', [CleaningServiceController::class, 'simpanTugas']);
 
 
 Route::get('admin/laporan', [ReportController::class, 'index']);
