@@ -22,7 +22,7 @@ class FrontendController extends Controller
         //$id = auth()->user->id;
         $id = 1;
         $post = Responsibility::where('cleaning_service_id', $id)->get();
-        $tugasNotDone = CleaningHistory::where('cleaning_service_id', $id)->where('responsibility_id','!==', $tugasNotDone)->get();
+        //$tugasNotDone = CleaningHistory::where('cleaning_service_id', $id)->where('responsibility_id','!==', $tugasNotDone)->get();
 
         return view('cleaningservice.index', compact('post'));
     }
