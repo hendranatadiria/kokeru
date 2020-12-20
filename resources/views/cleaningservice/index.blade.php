@@ -47,11 +47,13 @@
         @foreach($post as $data)
         <div class="col-sm-6 col-lg-3 ">
           <div class="card-body">
-              <div class="text-value text-center">{{$data->room_id}}</div>
+              <!-- <div class="text-value text-center">{{$data->name}}</div>-->
+              <div class="text-value text-center">{{$data->name}}</div>
+              <div class="text-value text-center">Lantai : {{$data->level}}</div>
               <div class="text-center">
                 STATUS : BELUM<br/>
-                <p class="card-text">{{\Illuminate\Support\Str::limit(strip_tags($data->isipost), 35, $end='...') }}</p>
-                <a href="tugas/edit/{{$data->idpost}}"  class="btn btn-success">EDIT</a>
+                <!--<p class="card-text">{{\Illuminate\Support\Str::limit(strip_tags($data->isipost), 35, $end='...') }}</p>-->
+                <a href="tugas/edit/{{$data->id}}"  class="btn btn-success">EDIT</a>
               </div>
           </div>
         </div>
