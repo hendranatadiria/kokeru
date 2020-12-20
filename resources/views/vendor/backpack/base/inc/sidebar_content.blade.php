@@ -4,6 +4,7 @@
 {{-- <li class='nav-item'><a class='nav-link' href='{{ backpack_url('gedung') }}'><i class='nav-icon la la-building'></i> Gedung</a></li> --}}
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('ruangan') }}'><i class='nav-icon la la-hotel'></i> Ruangan</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('cleaninghistory') }}'><i class='nav-icon la la-clipboard'></i> Riwayat Pembersihan</a></li>
+<li class='nav-item'><a class='nav-link' href='{{url("/admin/laporan")}}'><i class='nav-icon la la-clipboard'></i> Laporan</a></li>
 
 <li class="nav-title">Manajemen Cleaning Service</li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('responsibility') }}'><i class='nav-icon la la-certificate'></i> Pembagian Ruangan</a></li>
