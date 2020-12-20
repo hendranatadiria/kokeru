@@ -1,5 +1,8 @@
 <?php
 
+//use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FrontendController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +16,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/*
 Route::get('/', function () {
     return view('welcome');
 });
+*/
+
+//Frontpage
+Route::get('/', [FrontendController::class, 'index']);
+Route::get('/tugas/{id}', [FrontendController::class, 'lihatTugas']);
+
+//Route::get('/mypost', [CleaningServiceController::class, 'tugasSaya']);
+Route::get('/tugas/edit/{id}', [CleaningServiceController::class, 'editTugas']);
+Route::post('/tugas/edit/{id}', [CleaningServiceController::class, 'updateTugas']);
+
