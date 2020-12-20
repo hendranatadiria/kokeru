@@ -23,7 +23,6 @@ use App\Http\Controllers\ReportController;
 Route::get('/', function () {
     return view('welcome');
 });
-<<<<<<< HEAD
 */
 
 //Frontpage
@@ -34,8 +33,6 @@ Route::get('/tugas/{id}', [FrontendController::class, 'lihatTugas']);
 Route::get('/tugas/edit/{id}', [CleaningServiceController::class, 'editTugas']);
 Route::post('/tugas/edit/{id}', [CleaningServiceController::class, 'updateTugas']);
 
-=======
 
 Route::get('admin/laporan', [ReportController::class, 'index']);
 Route::get('admin/laporan/cetak_pdf', [ReportController::class, 'cetak_pdf']);
->>>>>>> 7d9d2a33c0cbe8d52e394ba1f34dc0a8d2db1aff
