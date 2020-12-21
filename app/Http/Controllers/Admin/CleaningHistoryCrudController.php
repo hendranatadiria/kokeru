@@ -97,19 +97,19 @@ class CleaningHistoryCrudController extends CrudController
     }
 
 
-    protected function setupJsonRoutes($segment, $routeName, $controller) {
-        Route::get($segment.'/{id}/json', [
-            'as'        => $routeName.'.json',
-            'uses'      => $controller.'@getJson',
-            'operation' => 'json',
-        ]);
+    // protected function setupJsonRoutes($segment, $routeName, $controller) {
+    //     Route::get($segment.'/{id}/json', [
+    //         'as'        => $routeName.'.json',
+    //         'uses'      => $controller.'@getJson',
+    //         'operation' => 'json',
+    //     ]);
 
-      }
+    //   }
 
-      public function getJson($id)
-      {
-        return CleaningHistory::with('cleaningService')->findOrFail($id);
-      }
+    //   public function getJson($id)
+    //   {
+    //     return CleaningHistory::with('cleaningService')->findOrFail($id);
+    //   }
 
 
 }

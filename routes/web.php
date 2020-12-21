@@ -28,14 +28,14 @@ Route::get('/', function () {
 
 //Frontpage
 //Route::get('/', [FrontendController::class, 'index']);
-Route::get('/tugas/{id}', [FrontendController::class, 'lihatTugas']);
 
-//Route::get('/mypost', [CleaningServiceController::class, 'tugasSaya']);
-Route::get('/tugas/edit/{id}', [CleaningServiceController::class, 'editTugas']);
-Route::post('/tugas/edit/{id}', [CleaningServiceController::class, 'simpanTugas']);
 
 
 Route::get('admin/laporan', [ReportController::class, 'index']);
 Route::get('admin/laporan/cetak_pdf', [ReportController::class, 'cetak_pdf']);
 Route::get('admin/laporan/tambah/{id}', [ReportController::class, 'add']);
 Route::post('admin/laporan/tambah/{id}', [ReportController::class, 'store']);
+Route::get('admin/cleaninghistory/{id}/json', [ReportController::class, 'getJson',
+    'as'        => 'CleaningHistory.json',
+    'operation' => 'json',
+]);

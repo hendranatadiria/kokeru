@@ -1,5 +1,6 @@
+@if(\Request::route()->getName()!='')
 @extends(backpack_view('blank'))
-
+@endif
 @section('header')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" integrity="sha512-ZKX+BvQihRJPA8CROKBhDNvoc2aDMOdAlcm7TUQY+35XYtrd3yh95QOOhsPDQY9QnKE0Wqag9y38OIgEvb88cA==" crossorigin="anonymous" />
 
@@ -26,13 +27,13 @@
     <br/>
 </div>
 <div class="row">
-@php $count=0; @endphp
+@php $count=0; $route= \Request::route()->getName(); @endphp
 @foreach($rooms as $room)
 @php
     $isCleaned = $room->cleaninghistory->where('created_at','>=', $todayHour)->where('created_at','<=', $todayEnd)->first();
     $cleaningServices = $room->responsibility->where('assigned_to', '>=', $today)->where('assigned_from', '<=', $today)->first();
 @endphp
-@if (backpack_user()->hasRole('manager') || $cleaningServices->cleaningService->id == backpack_user()->cleaning_services_id)
+@if ((backpack_auth()->check() && (backpack_user()->hasRole('manager') ||  $cleaningServices->cleaningService->id == backpack_user()->cleaning_services_id)) || $route =='')
 @php $count++ @endphp
 <div class="col-sm-6 col-lg-3 ">
     <div class="card text-white {{$isCleaned==null?'bg-orange':'bg-success'}}">
@@ -45,7 +46,7 @@
             <button type="button" class="btn detailmodal" data-toggle="modal" data-target="#detailedModal" data-detailid="{{$isCleaned->id}}">Detail</button>
             @else
             <a class="btn">Detail</a>
-                @if($cleaningServices->cleaningService->id == backpack_user()->cleaning_services_id && $isCleaned==null)
+                @if(backpack_auth()->check() && $cleaningServices->cleaningService->id == backpack_user()->cleaning_services_id && $isCleaned==null)
                     <a class="btn" href="{{url('/admin/laporan/tambah/'.$room->id)}}">Update Status</a>
                 @endif
             @endif

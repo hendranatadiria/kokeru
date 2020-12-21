@@ -91,4 +91,10 @@ class ReportController extends Controller
         \Alert::add('success', 'Laporan pembersihan telah berhasil ditambahkan')->flash();
         return redirect('/admin/dashboard');
     }
+
+
+      public function getJson($id)
+      {
+        return CleaningHistory::with('cleaningService')->findOrFail($id);
+      }
 }
