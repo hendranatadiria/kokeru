@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\CleaningServiceRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use App\Http\Requests\ItemRequest as ItemRequest;
+use App\Models\CleaningService;
+use App\Models\User;
 
 /**
  * Class CleaningServiceCrudController
@@ -40,9 +43,7 @@ class CleaningServiceCrudController extends CrudController
     protected function setupListOperation()
     {
         CRUD::column('name');
-        CRUD::column('status');
         CRUD::column('created_at');
-        CRUD::column('updated_at');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -62,13 +63,32 @@ class CleaningServiceCrudController extends CrudController
         CRUD::setValidation(CleaningServiceRequest::class);
 
         CRUD::field('name');
-        CRUD::field('status');
+        CRUD::field('email');
+        CRUD::field('password');
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');
          * - CRUD::addField(['name' => 'price', 'type' => 'number']));
          */
+    }
+
+    public function store(){
+        $req = $this->crud->getRequest()->request->all();
+        $cs = new CleaningService();
+        $cs->name = $req['name'];
+        $cs->save();
+        $user = new User();
+        $user->name = $req['name'];
+        $user->email = $req['email'];
+        $user->password = bcrypt($req['password']);
+        $user->cleaning_services_id = $cs->id;
+        $user->save();
+
+        $user->assignRole('cleaning_service');
+
+        return redirect('/admin/cleaningservice');
+
     }
 
     /**
@@ -79,6 +99,8 @@ class CleaningServiceCrudController extends CrudController
      */
     protected function setupUpdateOperation()
     {
-        $this->setupCreateOperation();
+        CRUD::setValidation(CleaningServiceRequest::class);
+
+        CRUD::field('name');
     }
 }

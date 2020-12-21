@@ -1,13 +1,17 @@
 @php
         $now= \Carbon\Carbon::now();
-        $today = $now->toDateString();
+        $date = app('request')->input('date')!=null?\Carbon\Carbon::parse(app('request')->input('date')):$now;
+
+        $today = $date->toDateString();
         $todayHour = $today.' 00:00:00';
+        $todayEnd = $today.' 23:59:59';
     @endphp
 
 <div class="col-12 text-center" >
-    <h1>Monitoring Kebersihan dan Kerapian Ruangan<br />Gedung Bersama Maju</h1>
-    <h4>Hari {{$now->translatedFormat('l')}} Tanggal {{$now->translatedFormat('d F Y')}} Jam {{$now->translatedFormat('H:i')}} WIB</h4>
-    <br/>
+    <h1>Laporan Harian Kebersihan dan Kerapian Ruangan Gedung Bersama Maju<br />
+        Hari {{$date->translatedFormat('l')}} Tanggal {{$date->translatedFormat('d F Y')}}</h1>
+            <h5>Tanggal Cetak {{$now->translatedFormat('d F Y')}} Jam {{$now->translatedFormat('H:i')}} WIB</h5>
+            <br/>
 </div>
 <div class="row">
 
@@ -24,15 +28,18 @@
 			@php $i=1 @endphp
 			@foreach($report as $r)
             @php
-                $isCleaned = $r->cleaninghistory->where('created_at','>=', $todayHour)->first();
+                $isCleaned = $r->cleaninghistory->where('created_at','>=', $todayHour)->where('created_at','<=', $todayEnd)->first();
                 $cleaningServices = $r->responsibility->where('assigned_to', '>=', $today)->where('assigned_from', '<=', $today)->first()->cleaningService->name;
             @endphp
+            @if(app('request')->input('status')=='all' || app('request')->input('status') == null || (app('request')->input('status') == 'done' && $isCleaned!=null ) || (app('request')->input('status') == 'nope' && $isCleaned==null ))
+
 			<tr>
 				<td>{{ $i++ }}</td>
 				<td>{{$cleaningServices}}</td>
 				<td>{{$r->name}}</td>
 				<td>{{$isCleaned==null?'BELUM':'SUDAH'}}</td>
-			</tr>
+            </tr>
+            @endif
 			@endforeach
 		</tbody>
 	</table>

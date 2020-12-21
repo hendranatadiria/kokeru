@@ -18,6 +18,7 @@
         $now= \Carbon\Carbon::now();
         $today = $now->toDateString();
         $todayHour = $today.' 00:00:00';
+        $todayEnd = $today.' 23:59:59';
     @endphp
 <div class="col-12 text-center" >
     <h1>Monitoring Kebersihan dan Kerapian Ruangan<br />Gedung Bersama Maju</h1>
@@ -25,12 +26,14 @@
     <br/>
 </div>
 <div class="row">
-
+@php $count=0; @endphp
 @foreach($rooms as $room)
 @php
-    $isCleaned = $room->cleaninghistory()->where('created_at','>=', $todayHour)->first();
+    $isCleaned = $room->cleaninghistory->where('created_at','>=', $todayHour)->where('created_at','<=', $todayEnd)->first();
     $cleaningServices = $room->responsibility->where('assigned_to', '>=', $today)->where('assigned_from', '<=', $today)->first();
 @endphp
+@if (backpack_user()->hasRole('manager') || $cleaningServices->cleaningService->id == backpack_user()->cleaning_services_id)
+@php $count++ @endphp
 <div class="col-sm-6 col-lg-3 ">
     <div class="card text-white {{$isCleaned==null?'bg-orange':'bg-success'}}">
       <div class="card-body">
@@ -38,16 +41,26 @@
         <div class="text-center">{{$isCleaned==null?'BELUM':'SUDAH'}}<br/>
             {{$cleaningServices==null?'Cleaning Service belum di set':optional($cleaningServices->cleaningService)->name}}<br />
             @if($isCleaned!=null)
+
             <button type="button" class="btn detailmodal" data-toggle="modal" data-target="#detailedModal" data-detailid="{{$isCleaned->id}}">Detail</button>
             @else
             <a class="btn">Detail</a>
+                @if($cleaningServices->cleaningService->id == backpack_user()->cleaning_services_id && $isCleaned==null)
+                    <a class="btn" href="{{url('/admin/laporan/tambah/'.$room->id)}}">Update Status</a>
+                @endif
             @endif
             </div>
         </div>
 
     </div>
   </div>
+  @endif
   @endforeach
+  @if($count<1)
+  <div class="col-12 text-center">
+  <h4 style="margin-top: auto;"> Anda belum memiliki penugasan ruangan untuk dibersihkan </h4>
+</div>
+    @endif
 </div>
 </div>
 
@@ -105,45 +118,45 @@
             if(result.proof_1 != null) {
                 var type= detectExt(result.proof_1);
                 if (type=='photo') {
-                    tag='<a href="{{url("/")}}/'+result.proof_1+'" data-lightbox="proof">'+'<img src="{{url("/")}}'+'/'+result.proof_1+'" class="img-fluid proof-crop p-1"></a>';
+                    tag='<a href="{{url("/public/upload/proof")}}/'+result.proof_1+'" data-lightbox="proof">'+'<img src="{{url("/public/upload/proof")}}'+'/'+result.proof_1+'" class="img-fluid proof-crop p-1"></a>';
                 } else if (type=='video') {
-                    tag='<video width="409" height="230" controls><source src="{{url("/")}}'+'/'+result.proof_1+'">';
+                    tag='<video width="409" height="230" controls><source src="{{url("/public/upload/proof")}}'+'/'+result.proof_1+'">';
                 }
                 modalBody.append(tag);
             }
             if(result.proof_2 != null) {
                 var type= detectExt(result.proof_2);
                 if (type=='photo') {
-                    tag='<a href="{{url("/")}}/'+result.proof_2+'" data-lightbox="proof">'+'<img src="{{url("/")}}'+'/'+result.proof_2+'" class="img-fluid proof-crop p-1"></a>';
+                    tag='<a href="{{url("/public/upload/proof")}}/'+result.proof_2+'" data-lightbox="proof">'+'<img src="{{url("/public/upload/proof")}}'+'/'+result.proof_2+'" class="img-fluid proof-crop p-1"></a>';
                 } else if (type=='video') {
-                    tag='<video width="409" height="230" controls><source src="{{url("/")}}'+'/'+result.proof_2+'">';
+                    tag='<video width="409" height="230" controls><source src="{{url("/public/upload/proof")}}'+'/'+result.proof_2+'">';
                 }
                 modalBody.append(tag);
             }
             if(result.proof_3 != null) {
                 var type= detectExt(result.proof_3);
                 if (type=='photo') {
-                    tag='<a href="{{url("/")}}/'+result.proof_3+'" data-lightbox="proof">'+'<img src="{{url("/")}}'+'/'+result.proof_3+'" class="img-fluid proof-crop p-1"></a>';
+                    tag='<a href="{{url("/public/upload/proof")}}/'+result.proof_3+'" data-lightbox="proof">'+'<img src="{{url("/public/upload/proof")}}'+'/'+result.proof_3+'" class="img-fluid proof-crop p-1"></a>';
                 } else if (type=='video') {
-                    tag='<video width="409" height="230" controls><source src="{{url("/")}}'+'/'+result.proof_3+'">';
+                    tag='<video width="409" height="230" controls><source src="{{url("/public/upload/proof")}}'+'/'+result.proof_3+'">';
                 }
                 modalBody.append(tag);
             }
             if(result.proof_4 != null) {
                 var type= detectExt(result.proof_4);
                 if (type=='photo') {
-                    tag='<a href="{{url("/")}}/'+result.proof_4+'" data-lightbox="proof">'+'<img src="{{url("/")}}'+'/'+result.proof_4+'" class="img-fluid proof-crop p-1"></a>';
+                    tag='<a href="{{url("/public/upload/proof")}}/'+result.proof_4+'" data-lightbox="proof">'+'<img src="{{url("/public/upload/proof")}}'+'/'+result.proof_4+'" class="img-fluid proof-crop p-1"></a>';
                 } else if (type=='video') {
-                    tag='<video width="409" height="230" controls><source src="{{url("/")}}'+'/'+result.proof_4+'">';
+                    tag='<video width="409" height="230" controls><source src="{{url("/public/upload/proof")}}'+'/'+result.proof_4+'">';
                 }
                 modalBody.append(tag);
             }
             if(result.proof_5 != null) {
                 var type= detectExt(result.proof_5);
                 if (type=='photo') {
-                    tag='<a href="{{url("/")}}/'+result.proof_5+'" data-lightbox="proof">'+'<img src="{{url("/")}}'+'/'+result.proof_5+'" class="img-fluid proof-crop p-1"></a>';
+                    tag='<a href="{{url("/public/upload/proof")}}/'+result.proof_5+'" data-lightbox="proof">'+'<img src="{{url("/public/upload/proof")}}'+'/'+result.proof_5+'" class="img-fluid proof-crop p-1"></a>';
                 } else if (type=='video') {
-                    tag='<video width="409" height="230" controls><source src="{{url("/")}}'+'/'+result.proof_5+'">';
+                    tag='<video width="409" height="230" controls><source src="{{url("/public/upload/proof")}}'+'/'+result.proof_5+'">';
                 }
                 modalBody.append(tag);
             }

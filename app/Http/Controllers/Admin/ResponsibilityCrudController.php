@@ -21,41 +21,56 @@ class ResponsibilityCrudController extends CrudController
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
-     * 
+     *
      * @return void
      */
     public function setup()
     {
         CRUD::setModel(\App\Models\Responsibility::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/responsibility');
-        CRUD::setEntityNameStrings('responsibility', 'responsibilities');
+        CRUD::setEntityNameStrings('Pembagian Ruangan', 'Pembagian Ruangan');
     }
 
     /**
      * Define what happens when the List operation is loaded.
-     * 
+     *
      * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
      * @return void
      */
     protected function setupListOperation()
     {
-        CRUD::column('cleaning_service_id');
-        CRUD::column('room_id');
+        CRUD::addColumn([
+            'name'         => 'cleaningService', // name of relationship method in the model
+            'type'         => 'relationship',
+            'label'        => 'Nama Cleaning Service', // Table column heading
+        ]);
+        CRUD::addColumn([
+            'name'         => 'room', // name of relationship method in the model
+            'type'         => 'relationship',
+            'label'        => 'Ruangan', // Table column heading
+        ]);
+        CRUD::addColumn([   // Date
+            'name'  => 'assigned_from',
+            'label' => 'Mulai tanggal',
+            'type'  => 'date'
+        ],);
         CRUD::column('assigned_from');
-        CRUD::column('assigned_to');
-        CRUD::column('created_at');
-        CRUD::column('updated_at');
+        CRUD::addColumn([   // Date
+            'name'  => 'assigned_to',
+            'label' => 'Sampai tanggal',
+            'type'  => 'date'
+        ],);
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
+         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
          */
     }
 
     /**
      * Define what happens when the Create operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-create
      * @return void
      */
@@ -71,13 +86,13 @@ class ResponsibilityCrudController extends CrudController
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
+         * - CRUD::addField(['name' => 'price', 'type' => 'number']));
          */
     }
 
     /**
      * Define what happens when the Update operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-update
      * @return void
      */

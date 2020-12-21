@@ -19,14 +19,14 @@ use App\Http\Controllers\ReportController;
 |
 */
 
-/*
+
 Route::get('/', function () {
-    return view('welcome');
+    return view('backpack::dashboard');
 });
-*/
+
 
 //Frontpage
-Route::get('/', [FrontendController::class, 'index']);
+//Route::get('/', [FrontendController::class, 'index']);
 Route::get('/tugas/{id}', [FrontendController::class, 'lihatTugas']);
 
 //Route::get('/mypost', [CleaningServiceController::class, 'tugasSaya']);
@@ -36,3 +36,5 @@ Route::post('/tugas/edit/{id}', [CleaningServiceController::class, 'updateTugas'
 
 Route::get('admin/laporan', [ReportController::class, 'index']);
 Route::get('admin/laporan/cetak_pdf', [ReportController::class, 'cetak_pdf']);
+Route::get('admin/laporan/tambah/{id}', [ReportController::class, 'add']);
+Route::post('admin/laporan/tambah/{id}', [ReportController::class, 'store']);
